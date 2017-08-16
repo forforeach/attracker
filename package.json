@@ -1,0 +1,20 @@
+{
+  "name": "node-mongo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=dev node index.js",
+    "prod": "NODE_ENV=prod node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "forforeach",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.15.4",
+    "mongoose": "4.11.7"
+  },
+  "devDependencies": {
+    "eslint": "^4.4.1"
+  }
+}
