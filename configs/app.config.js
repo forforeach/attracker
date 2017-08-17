@@ -7,8 +7,15 @@ switch (process.env.NODE_ENV) {
   case 'dev':
     appConfig = require('./app.config.dev');
     break;
+  case 'test':
+    appConfig = require('./app.config.test');
+    break;
   default:
     throw new Error('Environment was not specified. Exiting');
 }
 
-module.exports = appConfig;
+const commonAppConfig = {
+  port: 3000
+};
+
+module.exports = Object.assign({}, appConfig, commonAppConfig);
