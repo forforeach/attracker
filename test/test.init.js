@@ -11,7 +11,10 @@ before((done) => {
   });
 
   mongoose.connection
-    .once('open', () => done())
+    .once('open', () => {
+      console.log('Testing DB started');
+      done();
+    })
     .on('error', (error) => {
       console.error(error);
     });
