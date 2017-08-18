@@ -93,6 +93,7 @@
     "no-unsafe-negation": 2,
     "radix": 2,
     "valid-typeof": 2,
+    "no-undef": "error",
     "no-unused-vars": [
       2,
       {
