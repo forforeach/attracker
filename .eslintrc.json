@@ -7,6 +7,10 @@
   "parserOptions": {
     "ecmaVersion": 8
   },
+  "globals": {
+    "before": true,
+    "beforeEach": true
+  },
   /**
    * ESLint rules
    *
