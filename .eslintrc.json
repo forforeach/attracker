@@ -96,7 +96,7 @@
     "no-unused-vars": [
       2,
       {
-        "args": "none",
+        "args": "after-used",
         "vars": "local"
       }
     ],
