@@ -71,7 +71,7 @@
     "func-call-spacing": 2,
     "arrow-parens": [
       2,
-      "as-needed"
+      "always"
     ],
     // anti-patterns
     "no-var": 2,
@@ -173,7 +173,7 @@
         "CallExpression": {
           "arguments": 2
         },
-        "MemberExpression": 2
+        "MemberExpression": 1
       }
     ],
     /**
