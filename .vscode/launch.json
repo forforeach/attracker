@@ -7,7 +7,7 @@
       {
         "type": "node",
         "request": "launch",
-        "name": "Launch Program",
+        "name": "Launch Dev",
         "program": "${workspaceRoot}/index.js",
         "env": {
           "NODE_ENV": "dev"
