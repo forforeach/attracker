@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const dbConfig = require('./../configs/app.config').db;
 
-mongoose.Promise = global.Promise;
-
-let result = Promise.reject();
+let result;
 
 if (process.env.NODE_ENV !== 'test') {
   result = new Promise((resolve, reject) => {
+    mongoose.Promise = global.Promise;
+
     mongoose.connect(dbConfig.connectionString, {
       useMongoClient: true,
     });
