@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const request = require('supertest');
-const assert = require('assert');
+const chai = require('chai');
 const app = require('./../../src/app');
 
 const User = mongoose.model('user');
+const expect = chai.expect;
+chai.config.includeStack = true;
 
 describe('User controller', () => {
   it('POST to /api/users should create a new user', (done) => {
@@ -19,8 +21,8 @@ describe('User controller', () => {
       .end(() => {
         User.findOne({ email: userProps.email })
           .then((user) => {
-            assert(user !== null);
-            assert(user.email === userProps.email);
+            expect(user).not.to.be.null;
+            expect(user.email).to.be.equal(userProps.email);
             done();
           }).catch((error) => console.log(error));
       });
