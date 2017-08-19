@@ -13,6 +13,7 @@
   "author": "forforeach",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "1.17.2",
     "chai": "^4.1.1",
     "express": "4.15.4",
