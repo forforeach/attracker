@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 const dbConfig = require('./../configs/app.config').db;
 
-const promisifyDrop = (func) => new Promise((resolve) => {
-  func.apply(null, () => resolve());
-});
 
 before((done) => {
+  mongoose.Promise = Promise;
   mongoose.connect(dbConfig.connectionString, {
     useMongoClient: true,
   });
@@ -22,6 +20,5 @@ before((done) => {
 
 beforeEach((done) => {
   const { collections } = mongoose.connection;
-  const collectionsPromises = collections.map((collection) => promisifyDrop(collection.drop));
-  Promise.all(collectionsPromises).then(() => done());
+  collections.users.drop(() => done());
 });
