@@ -45,6 +45,7 @@ describe('User controller', () => {
             expect(res.body).not.to.be.null;
             expect(res.body.email).to.be.equal(user.email);
             expect(res.body._id.toString()).to.be.equal(user._id.toString());
+            expect(res.body.password).to.be.undefined;
             done();
           });
       });
@@ -67,6 +68,7 @@ describe('User controller', () => {
             expect(res.body).to.be.an('array');
             expect(res.body.length).to.be.equal(1);
             expect(res.body[0]._id.toString()).to.be.equal(user._id.toString());
+            expect(res.body[0].password).to.be.undefined;
             done();
           });
       });

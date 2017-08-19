@@ -1,6 +1,5 @@
 const User = require('./../models/user');
 
-
 /**
  * creates a user using User model
  *
@@ -11,11 +10,15 @@ const User = require('./../models/user');
  */
 function create(req, res, next) {
   const userProps = req.body;
-  User.create(userProps)
-    .then((user) => {
-      res.json(user);
-    })
-    .catch(next);
+  if (!userProps.password) {
+    res.status(400).send();
+  } else {
+    User.create(userProps)
+      .then((user) => {
+        res.json(user);
+      })
+      .catch(next);
+  }
 }
 
 /**

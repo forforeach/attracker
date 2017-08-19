@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const isEmail = require('validator').isEmail;
+const password = require('./../common/password');
 
 const Schema = mongoose.Schema;
 
@@ -12,7 +13,8 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: 'Password is required'
+    required: 'Password is required',
+    select: false
   },
   email: {
     type: String,
@@ -24,6 +26,25 @@ const UserSchema = new Schema({
     }
   }
 }, { timestamps: true });
+
+UserSchema.pre('save', function (next) {
+  const user = this;
+
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  password.hash(user.password)
+    .then((hash) => {
+      user.password = hash;
+      next();
+    })
+    .catch((err) => next(err));
+});
+
+UserSchema.methods.compare = function (pass) {
+  return password.compare(pass, this.password);
+};
 
 const User = mongoose.model('user', UserSchema);
 
