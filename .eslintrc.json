@@ -9,7 +9,9 @@
   },
   "globals": {
     "before": true,
-    "beforeEach": true
+    "beforeEach": true,
+    "describe": true,
+    "it": true
   },
   /**
    * ESLint rules
@@ -175,7 +177,7 @@
       {
         "SwitchCase": 1,
         "CallExpression": {
-          "arguments": 2
+          "arguments": 1
         },
         "MemberExpression": 1
       }
