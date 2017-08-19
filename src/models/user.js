@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     unique: true,
     required: 'Email is required for user',
     validate: {
-      validator: isEmail,
+      validator: (value) => isEmail(value),
       msg: 'Email has incorrect format'
     }
   }
