@@ -120,7 +120,11 @@
     ],
     "space-before-function-paren": [
       2,
-      "never"
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
     ],
     "no-whitespace-before-property": 2,
     "keyword-spacing": [
