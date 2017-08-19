@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "node"
+cache:
+  directories:
+    - "node_modules"
+services:
+  - mongodb
+before_install:
+  - npm i -g npm@5.3.0
+before_script:
+  - npm run lint
