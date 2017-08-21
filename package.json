@@ -28,5 +28,11 @@
   },
   "devDependencies": {
     "eslint": "^4.4.1"
+  },
+  "apidoc": {
+    "name": "Attracker",
+    "version": "0.0.1",
+    "description": "Attracker API documentation",
+    "title": "Attracker API"
   }
 }
