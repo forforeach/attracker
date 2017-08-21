@@ -8,7 +8,31 @@ const expect = chai.expect;
 chai.config.includeStack = true;
 
 describe('User controller', () => {
-  it('POST to /api/users should create a new user', (done) => {
+  let token;
+  before((done) => {
+    const user = new User({
+      email: 'main@test.com',
+      userName: 'username',
+      firstName: 'test',
+      lastName: 'user',
+      password: 'password'
+    });
+    user.save()
+      .then(() => {
+        request(app)
+          .post('/api/users/authenticate')
+          .send({
+            email: 'main@test.com',
+            password: 'password'
+          })
+          .then((res) => {
+            token = res.body.token;
+            done();
+          });
+      });
+  });
+
+  it('POST to /api/users/register should create a new user', (done) => {
     const userProps = {
       email: 'test@test.com',
       userName: 'username',
@@ -17,7 +41,7 @@ describe('User controller', () => {
       password: 'password'
     };
     request(app)
-      .post('/api/users')
+      .post('/api/users/register')
       .send(userProps)
       .end(() => {
         User.findOne({ email: userProps.email })
@@ -41,7 +65,9 @@ describe('User controller', () => {
       .then(() => {
         request(app)
           .get(`/api/users/${user._id}`)
+          .set('Authorization', 'Bearer ' + token)
           .then((res) => {
+            // console.log(res);
             expect(res.body).not.to.be.null;
             expect(res.body.email).to.be.equal(user.email);
             expect(res.body._id.toString()).to.be.equal(user._id.toString());
@@ -63,6 +89,7 @@ describe('User controller', () => {
       .then(() => {
         request(app)
           .get(`/api/users`)
+          .set('Authorization', 'Bearer ' + token)
           .then((res) => {
             expect(res.body).not.to.be.null;
             expect(res.body).to.be.an('array');
@@ -85,6 +112,7 @@ describe('User controller', () => {
     user.save()
       .then(() => request(app)
         .put(`/api/users/${user._id}`)
+        .set('Authorization', 'Bearer ' + token)
         .send({ firstName: 'Joe' }))
       .then(() => User.findById(user._id))
       .then((dbUser) => {
@@ -95,7 +123,7 @@ describe('User controller', () => {
 
   it('DELETE to /api/users/:id should remove a user', (done) => {
     const user = new User({
-      email: 'test@test.com',
+      email: 'testq@test.com',
       userName: 'username',
       firstName: 'test',
       lastName: 'user',
@@ -103,7 +131,9 @@ describe('User controller', () => {
     });
     user.save()
       .then(() => request(app)
-        .delete(`/api/users/${user._id}`))
+        .delete(`/api/users/${user._id}`)
+        .set('Authorization', 'Bearer ' + token)
+      )
       .then(() => User.findById(user._id))
       .then((dbUser) => {
         expect(dbUser).to.be.null;
