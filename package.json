@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=dev node index.js",
+    "dev": "NODE_ENV=dev nodemon --exec 'node index.js'",
     "test": "NODE_ENV=test mocha --recursive",
     "test:dev": "NODE_ENV=test nodemon --exec 'mocha --recursive -R min'",
     "prod": "NODE_ENV=prod node index.js",
@@ -17,6 +17,8 @@
     "body-parser": "1.17.2",
     "chai": "^4.1.1",
     "express": "4.15.4",
+    "express-jwt": "^5.3.0",
+    "jsonwebtoken": "^7.4.3",
     "mocha": "3.5.0",
     "mongoose": "4.11.7",
     "nodemon": "1.11.0",

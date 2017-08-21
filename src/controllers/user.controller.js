@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const appConfig = require('./../../configs/app.config');
 const User = require('./../models/user');
 
 /**
@@ -8,7 +10,7 @@ const User = require('./../models/user');
  * @param {any} next
  * @returns {User}
  */
-function create(req, res, next) {
+function register(req, res, next) {
   const userProps = req.body;
   if (!userProps.password) {
     res.status(400).send();
@@ -93,4 +95,50 @@ function remove(req, res, next) {
     .catch(next);
 }
 
-module.exports = { create, get, list, update, remove };
+/**
+ * removes a user using User model
+ *
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ * @returns {Token}
+ */
+function authenticate(req, res, next) {
+  const { email, password } = req.body;
+  User.findOne({ email }, {
+    userName: 1,
+    firstName: 1,
+    lastName: 1,
+    email: 1,
+    password: 1
+  })
+    .then((user) => {
+      if (user === null) {
+        res.status(404).json({ message: 'User not found' });
+      } else {
+        user.compare(password)
+          .then((equal) => {
+            if (!equal) {
+              res.status(401).json({ message: 'Wrong credentials' });
+            } else {
+              const userObject = user.toObject();
+              delete userObject.password;
+              jwt.sign(userObject, appConfig.auth.secret, {
+                expiresIn: 60 * 15
+              }, (err, token) => {
+                if (err) {
+                  next(err);
+                } else {
+                  res.json({ token });
+                }
+              });
+            }
+          })
+          .catch(next);
+      }
+    })
+    .catch(next);
+}
+
+
+module.exports = { register, get, list, update, remove, authenticate };
