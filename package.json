@@ -10,7 +10,7 @@
     "prod": "NODE_ENV=prod node index.js",
     "lint": "eslint src/** test/**",
     "doc:generate": "apidoc -i src/routes/ -o apidoc/",
-    "doc:deploy": "gh-pages -d . -s apidoc/**/*",
+    "doc:deploy": "node scripts/deploy-docs.js",
     "doc": "npm run doc:generate && npm run doc:deploy"
   },
   "author": "forforeach",
