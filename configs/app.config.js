@@ -15,7 +15,7 @@ switch (process.env.NODE_ENV) {
 }
 
 const commonAppConfig = {
-  port: 3000
+  port: 4000
 };
 
 module.exports = Object.assign({}, appConfig, commonAppConfig);
