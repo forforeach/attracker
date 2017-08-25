@@ -8,7 +8,7 @@ RUN apk --no-cache add --virtual builds-deps build-base python
 # Install app dependencies
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm install --progress false
 
 # Bundle app source
 COPY . .
