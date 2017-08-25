@@ -1,0 +1,29 @@
+version: "3"
+services:
+  nginx:
+    build: ./scripts/docker/nginx
+    links:
+        - api
+    ports:
+        - "3000:80"
+  api:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      NODE_ENV: dev
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    volumes:
+      - storage:/data/db
+  storage:
+    image: tianon/true
+    volumes:
+      - /data/db
+volumes:
+  storage:

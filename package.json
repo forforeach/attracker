@@ -5,18 +5,22 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=dev nodemon --exec 'node index.js'",
-    "test": "NODE_ENV=test mocha --recursive",
+    "test": "NODE_ENV=test npm run lint && mocha --recursive",
     "test:dev": "NODE_ENV=test nodemon --exec 'mocha --recursive -R min'",
     "prod": "NODE_ENV=prod node index.js",
     "lint": "eslint src/** test/**",
     "doc:generate": "apidoc -i src/routes/ -o apidoc/",
     "doc:deploy": "node scripts/deploy-docs.js",
-    "doc": "npm run doc:generate && npm run doc:deploy"
+    "doc": "npm run doc:generate && npm run doc:deploy",
+    "docker": "docker-compose up",
+    "docker:build": "docker-compose build",
+    "docker:test": "docker-compose -p tests run -p 2000 --rm api npm run test",
+    "docker:test:dev": "docker-compose -p tests run -p 2000 --rm api npm run test:dev"
   },
   "author": "forforeach",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^1.0.2",
+    "bcrypt": "^1.0.3",
     "body-parser": "1.17.2",
     "chai": "^4.1.1",
     "express": "4.15.4",
