@@ -11,7 +11,11 @@
     "lint": "eslint src/** test/**",
     "doc:generate": "apidoc -i src/routes/ -o apidoc/",
     "doc:deploy": "node scripts/deploy-docs.js",
-    "doc": "npm run doc:generate && npm run doc:deploy"
+    "doc": "npm run doc:generate && npm run doc:deploy",
+    "docker": "docker-compose up",
+    "docker:build": "docker-compose build",
+    "docker:test": "docker-compose -p tests run -p 2000 --rm api npm run test",
+    "docker:test:dev": "docker-compose -p tests run -p 2000 --rm api npm run test:dev"
   },
   "author": "forforeach",
   "license": "ISC",
