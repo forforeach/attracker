@@ -13,6 +13,8 @@
     "doc:deploy": "node scripts/deploy-docs.js",
     "doc": "npm run doc:generate && npm run doc:deploy",
     "docker": "docker-compose up",
+    "docker:background": "docker-compose up -d",
+    "docker:down": "docker-compose down",
     "docker:build": "docker-compose build",
     "docker:test": "docker-compose -p tests run -p 2000 --rm api npm run test",
     "docker:test:dev": "docker-compose -p tests run -p 2000 --rm api npm run test:dev"
