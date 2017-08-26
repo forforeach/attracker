@@ -12,7 +12,7 @@ RUN npm config set loglevel warn
 
 RUN npm install --silent
 
-RUN npm rebuild bcrypt --build-from-source
+RUN npm rebuild bcrypt --build-from-source --silent
 
 # Bundle app source
 COPY . .
