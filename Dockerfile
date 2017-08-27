@@ -19,7 +19,7 @@ COPY . .
 
 EXPOSE 4000
 
-RUN chown -R node /usr/src/app/logs && chmod -R u+rX /usr/src/app/logs
+RUN mkdir -p logs
 
 USER node
 
