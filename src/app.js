@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const jwt = require('express-jwt');
 const morgan = require('morgan');
 const appConfig = require('./../configs/app.config');
+const clientErrorHandler = require('./middlewares/client-error-handler');
+const logErrorHanlder = require('./middlewares/log-error-handler');
 
 const apiRouter = require('./routes');
 
@@ -19,5 +21,8 @@ app.use(
 );
 
 app.use('/api', apiRouter);
+
+app.use(logErrorHanlder);
+app.use(clientErrorHandler);
 
 module.exports = app;
