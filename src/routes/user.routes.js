@@ -1,6 +1,6 @@
 const express = require('express');
 const UserController = require('./../controllers/user.controller');
-const credentialsMiddleware = require('./../middlewares/credentials-required.middleware');
+const credentialsHandler = require('./../middlewares/credentials-required-handler');
 
 const router = express.Router();
 
@@ -42,6 +42,6 @@ router.get('/', UserController.list);
 router.get('/:id', UserController.get);
 router.put('/:id', UserController.update);
 router.delete('/:id', UserController.remove);
-router.post('/authenticate', credentialsMiddleware,  UserController.authenticate);
+router.post('/authenticate', credentialsHandler,  UserController.authenticate);
 
 module.exports = (apiRouter) => apiRouter.use('/users', router);
