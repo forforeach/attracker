@@ -8,7 +8,7 @@ describe('Password utility', () => {
       password.compare(pass, hash).then((equals) => {
         expect(equals).to.be.true;
         done();
-      });
+      }).catch((err) => console.log(err));
     });
   });
 });
