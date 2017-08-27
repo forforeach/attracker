@@ -19,10 +19,6 @@ COPY . .
 
 EXPOSE 4000
 
-RUN mkdir -p logs
-RUN chown -R node /usr/src/app/logs
-RUN chmod -R u+rX /usr/src/app/logs
-
 USER node
 
 CMD [ "npm", "run", "dev" ]
