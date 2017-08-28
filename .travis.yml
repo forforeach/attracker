@@ -1,16 +1,19 @@
 sudo: required
 env:
-  - DOCKER_COMPOSE_VERSION=1.14.0
+- DOCKER_COMPOSE_VERSION=1.14.0
 services:
-  - docker
+- docker
 before_install:
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - sudo apt-get update
-  - sudo apt-get -y install docker-ce
+- sudo apt-get update
+- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+- sudo apt-get update
+- sudo apt-get -y install docker-ce
 install:
-  - npm run docker:build
+- npm run docker:build
 script:
-  - npm run docker:test
+- npm run docker:test
+notifications:
+  slack:
+    secure: fyeVMF26QjhmY8jkFVcb41/heLAOay1rDUUZQ2T7er96NyH3L387t8Z0iWqH99li47kn27No1qZjJAM4AbMfT95xuW7Kyk3SMR1Xaq8oJ9OwCZZ7Y33/DqBiNWNFQ4loSnAbCAiW2jCphqfS5aRMWGCAceF/WphqfE3qwkFZ55wv0ijVEz4nmz0GxAfV9PZakgCTL+e5a2yHmFxkwdPfL5dfDOeRaXsfHwQUeYFpls367V8Le/Smt+WsSX3bl1B5Vbvoe+SpANeR8n+PaZ9qA0rbwLZfdYsP+1M9PXO0zXI5EThGYv1TxsUcprWQK6qgcvMJ2q4vJU41ipbYTEGtzXjp9OJIKLcWZhby8cLaavNJZhTpal9Qbqvjdyv5s7gwBURZa3+HKkY+JJckzlnCh5L5dlxCGuqRKnfmWwTRCJIiOhf9yv4ADzTZ8d8EM57tR+Akw5JCpica7DZ6glT3xqzwBXH0Z3/wjS8IT9+/8F1t6kahQGUovFfnq18iVx8HeVc7xLN15IhAXRcwicyfPrugvXudee453QkzDKBHjainJmEKRrJg6/TGX6IIJFRqEtTMhVXj4551kPrWspIxXIXm5hx7pjTccmcFJykd8Qsohdwxv8Vrzqm1RMu3lpirCZ68S0dx28wenzxjX5IoHLYAw7s27G5gnE9giChlc9w=
