@@ -19,6 +19,4 @@ COPY . .
 
 EXPOSE 4000
 
-USER node
-
 CMD [ "npm", "run", "dev" ]
