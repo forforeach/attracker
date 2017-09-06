@@ -1,0 +1,66 @@
+{
+  "family": "attracker-staging",
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "name": "nginx",
+      "image": "forforeach/attracker-nginx",
+      "essential": true,
+      "memory": 100,
+      "cpu": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "links": [
+        "api"
+      ]
+    },
+    {
+      "name": "api",
+      "image": "forforeach/attracker-api",
+      "essential": true,
+      "memory": 200,
+      "cpu": 512,
+      "mountPoints": [
+        {
+          "containerPath": "/usr/src/app/logs",
+          "sourceVolume": "logs"
+        }
+      ],
+      "links": [
+        "mongo"
+      ]
+    },
+    {
+      "name": "mongo",
+      "image": "mongo",
+      "essential": true,
+      "memory": 400,
+      "cpu": 384,
+      "mountPoints": [
+        {
+          "containerPath": "/data/db",
+          "sourceVolume": "storage"
+        }
+      ]
+    }
+  ],
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/data/db"
+      },
+      "name": "storage"
+    },
+    {
+      "host": {
+        "sourcePath": "/usr/attracker/logs"
+      },
+      "name": "logs"
+    }
+  ]
+}
