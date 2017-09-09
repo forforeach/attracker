@@ -1,5 +1,5 @@
 {
-  "family": "attracker-staging",
+  "family": "attracker-api-staging",
   "networkMode": "bridge",
   "containerDefinitions": [
     {
@@ -10,7 +10,7 @@
       "cpu": 128,
       "portMappings": [
         {
-          "hostPort": 80,
+          "hostPort": 8081,
           "containerPort": 80,
           "protocol": "tcp"
         }
@@ -23,8 +23,8 @@
       "name": "api",
       "image": "forforeach/attracker-api",
       "essential": true,
-      "memory": 200,
-      "cpu": 512,
+      "memory": 100,
+      "cpu": 256,
       "mountPoints": [
         {
           "containerPath": "/usr/src/app/logs",
@@ -39,8 +39,8 @@
       "name": "mongo",
       "image": "mongo",
       "essential": true,
-      "memory": 400,
-      "cpu": 384,
+      "memory": 300,
+      "cpu": 128,
       "mountPoints": [
         {
           "containerPath": "/data/db",
