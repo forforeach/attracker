@@ -2,9 +2,9 @@
 
 REGION=eu-central-1
 CLUSTER=attracker-staging
-SERVICE=attracker-staging-service
+SERVICE=attracker-api-staging-service
 TASK_DEFINITION_FILE_PATH=scripts/aws/attracker-staging-task-defenition.json
-TASK_DEFINITION_NAME=attracker-staging
+TASK_DEFINITION_NAME=attracker-api-staging
 
 # This is needed to login on AWS and push the image on ECR
 # Change it accordingly to your docker repo
