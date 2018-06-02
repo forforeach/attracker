@@ -16,7 +16,7 @@
     "docker:background": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:build": "docker-compose build",
-    "docker:test": "docker-compose -p tests run -e MONGO_CONNECTION_STRING=$MONGO_CONNECTION_STRING -e AUTH_SECRET=$AUTH_SECRET -p 2000 --rm api npm run test",
+    "docker:test": "docker-compose -p tests run -p 2000 --rm api npm run test",
     "docker:test:dev": "docker-compose -p tests run -p 2000 --rm api npm run test:dev"
   },
   "author": "forforeach",
