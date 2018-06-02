@@ -14,20 +14,7 @@
     "describe": true,
     "it": true
   },
-  /**
-   * ESLint rules
-   *
-   * All available rules: http://eslint.org/docs/rules/
-   *
-   * Rules take the following form:
-   *   "rule-name", [severity, { opts }]
-   * Severity: 2 == error, 1 == warning, 0 == off.
-   */
   "rules": {
-    /**
-     * Enforced rules
-     */
-    // syntax preferences
     "quotes": [
       2,
       "single",
@@ -79,7 +66,6 @@
       2,
       "always"
     ],
-    // anti-patterns
     "no-var": 2,
     "no-with": 2,
     "no-multi-str": 2,
@@ -107,13 +93,11 @@
         "vars": "local"
       }
     ],
-    // es2015 features
     "require-yield": 2,
     "template-curly-spacing": [
       2,
       "never"
     ],
-    // spacing details
     "space-infix-ops": 2,
     "space-in-parens": [
       2,
@@ -163,7 +147,6 @@
         "before": true
       }
     ],
-    // file whitespace
     "no-multiple-empty-lines": [
       2,
       {
@@ -187,10 +170,6 @@
         "MemberExpression": 1
       }
     ],
-    /**
-     * Disabled, aspirational rules
-     */
-    // brace-style is disabled, as eslint cannot enforce 1tbs as default, but allman for functions
     "brace-style": [
       0,
       "allman",
@@ -198,7 +177,6 @@
         "allowSingleLine": true
       }
     ],
-    // key-spacing is disabled, as some objects use value-aligned spacing, some not.
     "key-spacing": [
       0,
       {
@@ -207,12 +185,10 @@
         "align": "value"
       }
     ],
-    // quote-props is diabled, as property quoting styles are too varied to enforce.
     "quote-props": [
       0,
       "as-needed"
     ],
-    // no-implicit-globals will prevent accidental globals
     "no-implicit-globals": [
       0
     ]
