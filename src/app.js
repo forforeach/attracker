@@ -20,7 +20,7 @@ app.use(morgan('dev'));
 
 app.use(
   jwt({ secret: appConfig.auth.secret })
-    .unless({ path: ['/api/users/authenticate', '/api/users/register'] })
+    .unless({ path: ['/api/auth/authenticate', '/api/auth/register'] })
 );
 
 app.use('/api', apiRouter);

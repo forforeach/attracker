@@ -12,4 +12,15 @@ describe('Password utility', () => {
       })
       .catch((err) => console.log(err));
   });
+  it('should fail to compare different hashed passwords', (done) => {
+    const originalPass = '1234!@esdWQW';
+    const comparedPass = '13927!!@@@3@3';
+    password.hash(originalPass)
+      .then((hash) => password.compare(comparedPass, hash))
+      .then((equals) => {
+        expect(equals).to.be.false;
+        done();
+      })
+      .catch((err) => console.log(err));
+  });
 });

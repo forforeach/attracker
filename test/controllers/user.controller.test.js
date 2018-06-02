@@ -20,7 +20,7 @@ describe('User controller', () => {
     user.save()
       .then(() => {
         request(app)
-          .post('/api/users/authenticate')
+          .post('/api/auth/authenticate')
           .send({
             email: 'main@test.com',
             password: 'password'
@@ -29,27 +29,6 @@ describe('User controller', () => {
             token = res.body.token;
             done();
           });
-      });
-  });
-
-  it('POST to /api/users/register should create a new user', (done) => {
-    const userProps = {
-      email: 'test@test.com',
-      userName: 'username',
-      firstName: 'test',
-      lastName: 'user',
-      password: 'password'
-    };
-    request(app)
-      .post('/api/users/register')
-      .send(userProps)
-      .end(() => {
-        User.findOne({ email: userProps.email })
-          .then((user) => {
-            expect(user).not.to.be.null;
-            expect(user.email).to.be.equal(userProps.email);
-            done();
-          }).catch((error) => console.log(error));
       });
   });
 
