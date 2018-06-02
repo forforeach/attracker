@@ -1,6 +1,6 @@
 const appConfig = require('./../../configs/app.config');
 const User = require('./../models/user');
-const createUserToken = require('./../common/auth').createUserToken;
+const auth = require('./../common/auth');
 
 /**
  * creates a user using User model
@@ -16,6 +16,7 @@ function register(req, res, next) {
     res.status(400).send();
   } else {
     User.create(userProps)
+      .then((user) => auth.getUserWithoutPassword(user.toObject()))
       .then((user) => {
         res.json(user);
       })
@@ -49,10 +50,9 @@ function authenticate(req, res, next) {
             if (!equal) {
               res.status(401).json({ message: 'Wrong credentials' });
             } else {
-              const userObject = Object.assign({}, user.toObject(), { password: null });
-              delete userObject.password;
+              const userObject = auth.getUserWithoutPassword(user.toObject());
 
-              createUserToken(userObject, appConfig.auth.secret)
+              auth.createUserToken(userObject, appConfig.auth.secret)
                 .then((token) => res.json({ token }))
                 .catch((error) => next(error));
             }

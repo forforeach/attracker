@@ -14,5 +14,11 @@ const createUserToken = (user, secret) => (
   })
 );
 
+const getUserWithoutPassword = (user) => {
+  let newUser = Object.assign({}, user, { password: null });
+  delete newUser.password;
+  return newUser;
+};
 
-module.exports = { createUserToken };
+
+module.exports = { createUserToken, getUserWithoutPassword };

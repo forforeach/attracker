@@ -1,7 +1,7 @@
 ## PR Checklist
 Please check if your PR fulfills the following requirements:
 
-- [ ] Tests where updated/written
+- [ ] Tests were updated/written
 - [ ] Related documents were added
 
 
