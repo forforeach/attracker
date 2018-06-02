@@ -9,10 +9,11 @@ chai.config.includeStack = true;
 
 describe('User controller', () => {
   let token;
+  let userName = 'username';
   before((done) => {
     const user = new User({
       email: 'main@test.com',
-      userName: 'username',
+      userName,
       firstName: 'test',
       lastName: 'user',
       password: 'password'
@@ -32,10 +33,10 @@ describe('User controller', () => {
       });
   });
 
-  it('GET to /api/users/:id should retrieve a user', (done) => {
+  it('GET to /api/users/:username should retrieve a user', (done) => {
     const user = new User({
       email: 'test@test.com',
-      userName: 'username',
+      userName,
       firstName: 'test',
       lastName: 'user',
       password: 'password'
@@ -43,10 +44,9 @@ describe('User controller', () => {
     user.save()
       .then(() => {
         request(app)
-          .get(`/api/users/${user._id}`)
+          .get(`/api/users/${user.userName}`)
           .set('Authorization', 'Bearer ' + token)
           .then((res) => {
-            // console.log(res);
             expect(res.body).not.to.be.null;
             expect(res.body.email).to.be.equal(user.email);
             expect(res.body._id.toString()).to.be.equal(user._id.toString());
@@ -59,7 +59,7 @@ describe('User controller', () => {
   it('GET to /api/users should retrieve all users', (done) => {
     const user = new User({
       email: 'test@test.com',
-      userName: 'username',
+      userName,
       firstName: 'test',
       lastName: 'user',
       password: 'password'
@@ -80,40 +80,40 @@ describe('User controller', () => {
       });
   });
 
-  it('PUT to /api/users/:id should update a user', (done) => {
+  it('PUT to /api/users/:username should update a user', (done) => {
     const user = new User({
       email: 'test@test.com',
-      userName: 'username',
+      userName,
       firstName: 'test',
       lastName: 'user',
       password: 'password'
     });
     user.save()
       .then(() => request(app)
-        .put(`/api/users/${user._id}`)
+        .put(`/api/users/${user.userName}`)
         .set('Authorization', 'Bearer ' + token)
         .send({ firstName: 'Joe' }))
-      .then(() => User.findById(user._id))
+      .then(() => User.findOne({ userName: user.userName }))
       .then((dbUser) => {
         expect(dbUser.firstName).to.be.equal('Joe');
         done();
       });
   });
 
-  it('DELETE to /api/users/:id should remove a user', (done) => {
+  it('DELETE to /api/users/:username should remove a user', (done) => {
     const user = new User({
       email: 'testq@test.com',
-      userName: 'username',
+      userName,
       firstName: 'test',
       lastName: 'user',
       password: 'password'
     });
     user.save()
       .then(() => request(app)
-        .delete(`/api/users/${user._id}`)
+        .delete(`/api/users/${user.userName}`)
         .set('Authorization', 'Bearer ' + token)
       )
-      .then(() => User.findById(user._id))
+      .then(() => User.findOne({ userName: user.userName }))
       .then((dbUser) => {
         expect(dbUser).to.be.null;
         done();
