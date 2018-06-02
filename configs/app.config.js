@@ -1,8 +1,13 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
 
-console.log(process.env.MONGO_CONNECTION_STRING);
+const result = dotenv.config();
+
+if (result.error) {
+  throw result.error;
+}
+
 module.exports = {
-  port: process.env.APP_PORT || 4000,
+  port: process.env.APP_PORT,
   db: {
     connectionString: process.env.MONGO_CONNECTION_STRING,
   },
