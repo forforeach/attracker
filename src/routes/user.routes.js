@@ -1,10 +1,8 @@
 const express = require('express');
 const UserController = require('./../controllers/user.controller');
-const credentialsHandler = require('./../middlewares/credentials-required-handler');
 
 const router = express.Router();
 
-router.post('/register', UserController.register);
 router.get('/', UserController.list);
 /**
  * @api {get} /user/:id Retrieve a single user
@@ -42,6 +40,5 @@ router.get('/', UserController.list);
 router.get('/:id', UserController.get);
 router.put('/:id', UserController.update);
 router.delete('/:id', UserController.remove);
-router.post('/authenticate', credentialsHandler,  UserController.authenticate);
 
 module.exports = (apiRouter) => apiRouter.use('/users', router);
