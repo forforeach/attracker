@@ -9,7 +9,7 @@ router.get('/', UserController.list);
  * @apiName GetUser
  * @apiGroup User
  *
- * @apiParam {Number} id Users unique ID.
+ * @apiParam {String} username Unique user name.
  *
  * @apiSuccess {String} firstName Firstname of the User.
  * @apiSuccess {String} lastName  Lastname of the User.
@@ -37,8 +37,8 @@ router.get('/', UserController.list);
  *       "error": "UserNotFound"
  *     }
  */
-router.get('/:id', UserController.get);
-router.put('/:id', UserController.update);
-router.delete('/:id', UserController.remove);
+router.get('/:username', UserController.get);
+router.put('/:username', UserController.update);
+router.delete('/:username', UserController.remove);
 
 module.exports = (apiRouter) => apiRouter.use('/users', router);

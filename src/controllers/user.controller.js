@@ -9,11 +9,10 @@ const User = require('./../models/user');
  * @returns {User}
  */
 function get(req, res, next) {
-  const { id } = req.params;
-  User.findById(id)
-    .then((user) => {
-      res.json(user);
-    })
+  const { username } = req.params;
+  const query = { userName: username };
+  User.findOne(query)
+    .then((user) => res.json(user))
     .catch(next);
 }
 
@@ -42,10 +41,11 @@ function list(req, res, next) {
  * @returns {User}
  */
 function update(req, res, next) {
-  const { id } = req.params;
+  const { username } = req.params;
+  const query = { userName: username };
   const userProps = req.body;
-  User.findByIdAndUpdate(id, userProps)
-    .then(() => User.findById(id))
+  User.findOneAndUpdate(query, userProps)
+    .then(() => User.findOne(query))
     .then((user) => {
       res.json(user);
     })
@@ -61,12 +61,13 @@ function update(req, res, next) {
  * @returns {User}
  */
 function remove(req, res, next) {
-  const { id } = req.params;
+  const { username } = req.params;
+  const query = { userName: username };
   let userModel;
-  User.findById(id)
+  User.findOne(query)
     .then((user) => {
       userModel = user;
-      return User.findByIdAndRemove(id);
+      return User.findOneAndRemove(query);
     })
     .then(() => res.status(204).json(userModel))
     .catch(next);
