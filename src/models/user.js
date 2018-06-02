@@ -5,16 +5,21 @@ const password = require('./../common/password');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+  __v: {
+    type: Number,
+    select: false
+  },
   firstName: String,
   lastName: String,
   userName: {
     type: String,
-    required: 'Username is required'
+    required: 'Username is required',
+    unique: true,
   },
   password: {
     type: String,
     required: 'Password is required',
-    select: false
+    select: false,
   },
   email: {
     type: String,
@@ -23,7 +28,7 @@ const UserSchema = new Schema({
     validate: {
       validator: (value) => isEmail(value),
       msg: 'Email has incorrect format'
-    }
+    },
   }
 }, { timestamps: true });
 
