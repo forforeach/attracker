@@ -7,9 +7,7 @@ if (process.env.NODE_ENV !== 'test') {
   result = new Promise((resolve, reject) => {
     mongoose.Promise = global.Promise;
 
-    mongoose.connect(dbConfig.connectionString, {
-      useMongoClient: true,
-    });
+    mongoose.connect(dbConfig.connectionString);
 
     mongoose.connection
       .once('open', () => resolve('DB started'))

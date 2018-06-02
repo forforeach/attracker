@@ -4,9 +4,7 @@ const dbConfig = require('./../configs/app.config').db;
 
 before((done) => {
   mongoose.Promise = Promise;
-  mongoose.connect(dbConfig.connectionString, {
-    useMongoClient: true,
-  });
+  mongoose.connect(dbConfig.connectionString);
 
   mongoose.connection
     .once('open', () => {
@@ -22,3 +20,5 @@ beforeEach((done) => {
   const { collections } = mongoose.connection;
   collections.users.drop(() => done());
 });
+
+after(() => mongoose.connection.close());
