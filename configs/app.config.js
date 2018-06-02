@@ -1,21 +1,17 @@
-let appConfig;
+const dotenv = require('dotenv');
 
-switch (process.env.NODE_ENV) {
-  case 'prod':
-    appConfig = require('./app.config.prod');
-    break;
-  case 'dev':
-    appConfig = require('./app.config.dev');
-    break;
-  case 'test':
-    appConfig = require('./app.config.test');
-    break;
-  default:
-    throw new Error('Environment was not specified. Exiting');
+const result = dotenv.config();
+
+if (result.error) {
+  throw result.error;
 }
 
-const commonAppConfig = {
-  port: 4000
+module.exports = {
+  port: process.env.APP_PORT,
+  db: {
+    connectionString: process.env.MONGO_CONNECTION_STRING,
+  },
+  auth: {
+    secret: process.env.AUTH_SECRET,
+  }
 };
-
-module.exports = Object.assign({}, appConfig, commonAppConfig);
