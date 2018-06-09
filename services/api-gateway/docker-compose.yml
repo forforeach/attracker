@@ -1,7 +1,7 @@
 version: "3"
 services:
   nginx:
-    build: ./scripts/docker/nginx
+    build: ${API_GATEWAY:-.}/scripts/docker/nginx
     image: forforeach/attracker-nginx
     links:
         - api
@@ -11,7 +11,7 @@ services:
     build: .
     image: forforeach/attracker-api
     volumes:
-      - .:/usr/src/app
+      - ${API_GATEWAY:-.}:/usr/src/app
       - /usr/src/app/node_modules
     environment:
       NODE_ENV: dev

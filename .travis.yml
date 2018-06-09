@@ -12,9 +12,10 @@ before_install:
   $(lsb_release -cs) stable"
 - sudo apt-get update
 - sudo apt-get -y install docker-ce
+before_script:
+- bash scripts/before-script.sh
 script:
-- bash scripts/ci/set-env-file.sh
-- npm run docker:test
+- bash scripts/test.sh
 # safelist
 branches:
   only:
