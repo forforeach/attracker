@@ -1,0 +1,28 @@
+{
+  "name": "attracker",
+  "version": "1.0.0",
+  "description": "Attracker main repository",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forforeach/attracker.git"
+  },
+  "keywords": [
+    "attracker"
+  ],
+  "author": "forforeach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/forforeach/attracker/issues"
+  },
+  "homepage": "https://github.com/forforeach/attracker#readme",
+  "devDependencies": {
+    "gh-pages": "^1.2.0"
+  }
+}

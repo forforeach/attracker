@@ -9,9 +9,7 @@
     "test:dev": "NODE_ENV=test nodemon --exec 'mocha --recursive -R min'",
     "prod": "NODE_ENV=prod node index.js",
     "lint": "eslint src/** test/**",
-    "doc:generate": "apidoc -i src/routes/ -o apidoc/",
-    "doc:deploy": "node scripts/deploy-docs.js",
-    "doc": "npm run doc:generate && npm run doc:deploy",
+    "doc": "apidoc -i src/routes/ -o ../../services-docs/api-gateway/",
     "docker": "docker-compose up",
     "docker:background": "docker-compose up -d",
     "docker:down": "docker-compose down",
@@ -45,9 +43,9 @@
     "gh-pages": "^1.2.0"
   },
   "apidoc": {
-    "name": "Attracker",
+    "name": "Attracker API gateway",
     "version": "0.0.1",
-    "description": "Attracker API documentation",
-    "title": "Attracker API"
+    "description": "Attracker API gateway documentation",
+    "title": "Attracker API gateway"
   }
 }
