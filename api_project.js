@@ -1,1 +1,0 @@
-define({  "name": "Attracker",  "version": "0.0.1",  "description": "Attracker API documentation",  "title": "Attracker API",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2018-06-02T09:17:28.260Z",    "url": "http://apidocjs.com",    "version": "0.17.6"  }});
