@@ -1,4 +1,5 @@
 #!/bin/bash
+#  sudo ifconfig lo0 alias 172.23.0.2
 
 TEST_COMMAND="npm"
 TEST_PARAMS=(run docker:test:unit)

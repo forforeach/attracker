@@ -7,4 +7,4 @@ services:
       - ${WEB:-.}:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - "4000:8080"
+      - "4000:4000"

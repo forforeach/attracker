@@ -1,8 +1,18 @@
 {
+  "include": [
+    "./src/**/*"
+  ],
   "compilerOptions": {
     "target": "es6",
+    "baseUrl": ".",
     "paths": {
-      "@": ["./src"]
+      "*": [
+        "*",
+        "assets/*"
+      ],
+      "@/*": [
+        "src/*"
+      ]
     }
   }
 }
