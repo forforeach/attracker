@@ -8,7 +8,11 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "docker:test:unit": "docker-compose -p web-tests run -p 2000 --rm web npm run test:unit",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e",
+    "docker": "docker-compose up",
+    "docker:background": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose build"
   },
   "dependencies": {
     "register-service-worker": "^1.0.0",
