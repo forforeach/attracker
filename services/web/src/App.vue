@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import AttHeader from '@/components/header'
+import AttHeader from '@/components/header/Header.vue'
 export default {
   name: 'app',
   components: {

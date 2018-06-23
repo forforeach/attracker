@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import AttLogin from '@/components/login'
+import AttLogin from '@/components/login/Login.vue'
 export default {
   name: 'Login',
   props: ['redirect'],

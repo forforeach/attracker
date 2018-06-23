@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Login from './views/Login.vue'
-import auth from './services/auth'
+import Home from '@/pages/home.page.vue'
+import Login from '@/pages/login.page.vue'
+import localStorage from '@/services/local-storage'
+import { AUTH_TOKEN_KEY } from '@/stores/auth'
 
 Vue.use(Router)
 
@@ -27,12 +28,13 @@ const router = new Router({
 
 // authentication route guard
 router.beforeEach((to, from, next) => {
-  if (!auth.loggedIn() && !(to.name in publicRoutes)) {
+  const loggedIn = localStorage.get(AUTH_TOKEN_KEY)
+  if (!loggedIn && !(to.name in publicRoutes)) {
     next({
       name: 'login',
       query: { redirect: to.fullPath }
     })
-  } else if (auth.loggedIn() && to.name in publicRoutes) {
+  } else if (loggedIn && to.name in publicRoutes) {
     next({ name: 'home' })
   } else {
     next()

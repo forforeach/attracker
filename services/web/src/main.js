@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import App from './App.vue'
 import Vuetify from 'vuetify'
 import router from './router'
-import store from './store'
+import store from './stores/store'
+import App from '@/App.vue'
 import './registerServiceWorker'
 import 'vuetify/dist/vuetify.min.css'
 

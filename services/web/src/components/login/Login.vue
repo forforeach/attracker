@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import auth from '@/services/auth.js'
+import { AUTH_LOGIN_ACTION } from '@/stores/auth.js'
 export default {
   name: 'att-login',
   props: ['redirect'],
@@ -29,8 +29,10 @@ export default {
   },
   methods: {
     login () {
-      auth.login(this.username, this.password)
-        .then(() => this.$router.push(this.$props.redirect))
+      this.$store.dispatch({
+        type: AUTH_LOGIN_ACTION,
+        payload: { username: this.username, password: this.password }
+      }).then(() => this.$router.push(this.$props.redirect || '/'))
     }
   }
 }
