@@ -1,6 +1,7 @@
 const express = require('express');
 const AuthController = require('./../controllers/auth.controller');
 const credentialsHandler = require('./../middlewares/credentials-required-handler');
+const oauth2 = require('./../auth/oauth2');
 
 const router = express.Router();
 
@@ -26,11 +27,11 @@ const router = express.Router();
  */
 router.post('/register', AuthController.register);
 /**
- * @api {post} /auth/authencticate Authenticate a user
+ * @api {post} /auth/token Authenticate a user
  * @apiName Authenticate
  * @apiGroup Auth
  *
- * @apiParam {String} email User email.
+ * @apiParam {String} username Username.
  * @apiParam {String} password User password.
  *
  * @apiSuccess {String} token Authentication token.
@@ -50,6 +51,6 @@ router.post('/register', AuthController.register);
  *       "error": "UserNotFound"
  *     }
  */
-router.post('/authenticate', credentialsHandler,  AuthController.authenticate);
+router.post('/token', oauth2.token);
 
 module.exports = (apiRouter) => apiRouter.use('/auth', router);

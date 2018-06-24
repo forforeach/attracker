@@ -47,8 +47,21 @@ UserSchema.pre('save', function (next) {
     .catch((err) => next(err));
 });
 
-UserSchema.methods.compare = function (pass) {
-  return password.compare(pass, this.password);
+UserSchema.methods.validatePassword = function (pass) {
+  return password.compare(pass, this.password)
+    .then((valid) => {
+      if (!valid) {
+        throw new Error('Invalid password');
+      }
+      return this;
+    });
+};
+
+UserSchema.methods.toClientObject = function () {
+  const user = this.toObject();
+  user.id = user._id.toString();
+  delete user._id;
+  return user;
 };
 
 const User = mongoose.model('user', UserSchema);

@@ -1,6 +1,5 @@
-const appConfig = require('./../../configs/app.config');
 const User = require('./../models/user');
-const auth = require('./../common/auth');
+const auth = require('../auth/utils');
 
 /**
  * creates a user using User model
@@ -16,7 +15,7 @@ function register(req, res, next) {
     res.status(400).send();
   } else {
     User.create(userProps)
-      .then((user) => auth.getUserWithoutPassword(user.toObject()))
+      .then((user) => auth.removePasswordProp(user.toObject()))
       .then((user) => {
         res.json(user);
       })
@@ -24,44 +23,4 @@ function register(req, res, next) {
   }
 }
 
-/**
- * removes a user using User model
- *
- * @param {any} req
- * @param {any} res
- * @param {any} next
- * @returns {Token}
- */
-function authenticate(req, res, next) {
-  const { email, password } = req.body;
-  User.findOne({ email }, {
-    userName: 1,
-    firstName: 1,
-    lastName: 1,
-    email: 1,
-    password: 1
-  })
-    .then((user) => {
-      if (user === null) {
-        res.status(404).json({ message: 'UserNotFound' });
-      } else {
-        user.compare(password)
-          .then((equal) => {
-            if (!equal) {
-              res.status(401).json({ message: 'Wrong credentials' });
-            } else {
-              const userObject = auth.getUserWithoutPassword(user.toObject());
-
-              auth.createUserToken(userObject, appConfig.auth.secret)
-                .then((token) => res.json({ token }))
-                .catch((error) => next(error));
-            }
-          })
-          .catch(next);
-      }
-    })
-    .catch(next);
-}
-
-
-module.exports = { register, authenticate };
+module.exports = { register };

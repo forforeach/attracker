@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const UserController = require('./../controllers/user.controller');
 
 const router = express.Router();
@@ -41,4 +42,4 @@ router.get('/:username', UserController.get);
 router.put('/:username', UserController.update);
 router.delete('/:username', UserController.remove);
 
-module.exports = (apiRouter) => apiRouter.use('/users', router);
+module.exports = (apiRouter) => apiRouter.use('/users', passport.authenticate('bearer', { session: false }), router);
