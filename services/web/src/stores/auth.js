@@ -1,4 +1,4 @@
-import localStorage from '@/services/local-storage'
+import { loggedIn, login } from '@/utils/auth'
 
 export const AUTH_TOKEN_KEY = 'auth_token'
 
@@ -8,7 +8,7 @@ export const AUTH_LOGEDIN = 'auth/loggedIn'
 const AUTH_LOGIN_SUCCESS = 'auth/loginSuccess'
 
 export const state = {
-  [AUTH_LOGEDIN]: localStorage.get(AUTH_TOKEN_KEY)
+  [AUTH_LOGEDIN]: loggedIn()
 }
 
 export const mutations = {
@@ -18,13 +18,8 @@ export const mutations = {
 }
 
 export const actions = {
-  [AUTH_LOGIN_ACTION]: ({ commit }) => {
-    if (localStorage.get(AUTH_TOKEN_KEY)) {
-      return Promise.resolve()
-        .then(commit(AUTH_LOGIN_SUCCESS))
-    }
-    return Promise.resolve()
-      .then(() => localStorage.set(AUTH_TOKEN_KEY, 'foo'))
+  [AUTH_LOGIN_ACTION]: ({ commit }, { payload }) => {
+    return login(payload.username, payload.password)
       .then(() => commit(AUTH_LOGIN_SUCCESS))
   }
 }

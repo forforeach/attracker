@@ -55,6 +55,20 @@ const setAuthorizationHeaders = (args = [], accessToken) => {
   return args
 }
 
+export const login = (username, password) => {
+  const data = Object.assign({}, { username, password }, {
+    grant_type: 'password',
+    client_id: clientId,
+    client_secret: clientSecret
+  })
+
+  return api.post('/auth/token', { data })
+    .then(({
+      [ACCESS_TOKEN_KEY]: accessToken,
+      [REFRESH_TOKEN_KEY]: refreshToken
+    }) => updateTokens(accessToken, refreshToken))
+}
+
 export const auth = (target, key, descriptor) => {
   if (typeof descriptor.value === 'function') {
     const originalFn = descriptor.value
@@ -78,4 +92,13 @@ export const auth = (target, key, descriptor) => {
     }
   }
   return descriptor
+}
+
+export const loggedIn = () => {
+  const accessToken = storage.get(ACCESS_TOKEN_KEY)
+  if (!accessTokenExpired(accessToken)) {
+    return true
+  }
+  const refreshToken = storage.get(REFRESH_TOKEN_KEY)
+  return !!refreshToken
 }

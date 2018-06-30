@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/home.page.vue'
 import Login from '@/pages/login.page.vue'
-import localStorage from '@/services/local-storage'
-import { AUTH_TOKEN_KEY } from '@/stores/auth'
+
+import { loggedIn } from '@/utils/auth'
 
 Vue.use(Router)
 
@@ -28,17 +28,16 @@ const router = new Router({
 
 // authentication route guard
 router.beforeEach((to, from, next) => {
-  const loggedIn = localStorage.get(AUTH_TOKEN_KEY)
-  if (!loggedIn && !(to.name in publicRoutes)) {
-    next({
+  let nextParams
+  if (!loggedIn() && !(to.name in publicRoutes)) {
+    nextParams = {
       name: 'login',
       query: { redirect: to.fullPath }
-    })
-  } else if (loggedIn && to.name in publicRoutes) {
-    next({ name: 'home' })
-  } else {
-    next()
+    }
+  } else if (loggedIn() && to.name in publicRoutes) {
+    nextParams = { name: 'home' }
   }
+  next(nextParams)
 })
 
 export default router
