@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
+    "test:unit:dev": "npx jest --clearCache && vue-cli-service test:unit --watch",
     "docker:test:unit": "docker-compose -p web-tests run -p 2000 --rm web npm run test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "docker": "docker-compose up",
@@ -15,6 +16,8 @@
     "docker:build": "docker-compose build"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "jsonwebtoken": "^8.3.0",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",

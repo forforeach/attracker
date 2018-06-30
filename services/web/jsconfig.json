@@ -3,7 +3,8 @@
     "./src/**/*"
   ],
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2015",
+    "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
       "*": [
