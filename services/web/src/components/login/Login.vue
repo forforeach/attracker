@@ -4,9 +4,10 @@
       <v-toolbar-title>Login</v-toolbar-title>
     </v-toolbar>
     <v-card-text>
-      <v-form @submit="login">
-        <v-text-field prepend-icon="person" name="username" label="User name" type="text" v-model="username"></v-text-field>
-        <v-text-field prepend-icon="lock" name="password" label="Password" type="password" v-model="password"></v-text-field>
+      <v-form ref="form" @submit="login">
+        <v-text-field prepend-icon="person" name="username" label="User name" type="text" v-model="username" required :rules="usernameRules"></v-text-field>
+        <v-text-field prepend-icon="lock" name="password" label="Password" type="password" v-model="password" required :rules="passwordRules"></v-text-field>
+        <div v-if="loginFailed" class="login-error-message error--text text-sm-left text-lg-left">Username or password are incorrect</div>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn type="submit" color="primary">Login</v-btn>
@@ -23,17 +24,32 @@ export default {
   props: ['redirect'],
   data () {
     return {
+      loginFailed: false,
       username: '',
-      password: ''
+      usernameRules: [
+        v => !!v || 'Username is required',
+        v => v.length >= 3 || 'Name must have more than 3 characters'
+      ],
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password is required'
+      ]
     }
   },
   methods: {
     login (event) {
       event.preventDefault()
-      this.$store.dispatch({
-        type: AUTH_LOGIN_ACTION,
-        payload: { username: this.username, password: this.password }
-      }).then(() => this.$router.push(this.$props.redirect || '/'))
+      if (this.$refs.form.validate()) {
+        this.loginFailed = false
+        this.$store.dispatch({
+          type: AUTH_LOGIN_ACTION,
+          payload: { username: this.username, password: this.password }
+        })
+          .then(() => this.$router.push(this.$props.redirect || '/'))
+          .catch(() => {
+            this.loginFailed = true
+          })
+      }
     }
   }
 }
