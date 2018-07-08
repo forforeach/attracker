@@ -1,0 +1,25 @@
+version: "3"
+services:
+  user:
+    build: .
+    volumes:
+      - ${USER_SERVICE:-.}:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      NODE_ENV: dev
+    links:
+      - user-mongo
+    depends_on:
+      - user-mongo
+    ports:
+      - "5000:5000"
+      - "9223:9222"
+  user-mongo:
+    image: mongo
+    command: mongod --port 27018
+    volumes:
+      - storage:/data/db/users
+    ports:
+      - "27018:27018"
+volumes:
+  storage:

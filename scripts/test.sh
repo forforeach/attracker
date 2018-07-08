@@ -14,7 +14,6 @@ set -e
 SERVICES=()
 for DIR in $DIFF; do
   SERVICE=$(echo $DIR | cut -d'/' -f 2)
-  echo "Changed service: $SERVICE"
   if [[ ! " ${SERVICES[@]} " =~ " ${SERVICE} " ]]; then
     SERVICES+=" $SERVICE"
   fi
