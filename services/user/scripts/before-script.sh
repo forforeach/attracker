@@ -12,5 +12,5 @@ else
   printf "\t.env file was created successfully...\n"
   printf "\tSetting env params...\n"
   echo "APP_PORT=$APP_PORT" >> $file
-  echo "MONGO_CONNECTION_STRING=$MONGO_CONNECTION_STRING" >> $file
+  echo "USER_MONGO_CONNECTION_STRING=$USER_MONGO_CONNECTION_STRING" >> $file
 fi
