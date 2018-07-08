@@ -4,7 +4,7 @@ const password = require('./../common/password');
 
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const AuthUserSchema = new Schema({
   __v: {
     type: Number,
     select: false
@@ -32,7 +32,7 @@ const UserSchema = new Schema({
   }
 }, { timestamps: true });
 
-UserSchema.pre('save', function (next) {
+AuthUserSchema.pre('save', function (next) {
   const user = this;
 
   if (!user.isModified('password')) {
@@ -47,7 +47,7 @@ UserSchema.pre('save', function (next) {
     .catch((err) => next(err));
 });
 
-UserSchema.methods.validatePassword = function (pass) {
+AuthUserSchema.methods.validatePassword = function (pass) {
   return password.compare(pass, this.password)
     .then((valid) => {
       if (!valid) {
@@ -57,13 +57,13 @@ UserSchema.methods.validatePassword = function (pass) {
     });
 };
 
-UserSchema.methods.toClientObject = function () {
+AuthUserSchema.methods.toClientObject = function () {
   const user = this.toObject();
   user.id = user._id.toString();
   delete user._id;
   return user;
 };
 
-const User = mongoose.model('user', UserSchema);
+const AuthUser = mongoose.model('authuser', AuthUserSchema);
 
-module.exports = User;
+module.exports = AuthUser;

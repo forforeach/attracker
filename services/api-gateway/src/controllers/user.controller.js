@@ -1,4 +1,4 @@
-const User = require('./../models/user');
+const AuthUser = require('./../models/authUser');
 
 /**
  * retrieves a single user using User model
@@ -11,7 +11,7 @@ const User = require('./../models/user');
 function get(req, res, next) {
   const { username } = req.params;
   const query = { userName: username };
-  User.findOne(query)
+  AuthUser.findOne(query)
     .then((user) => res.json(user))
     .catch(next);
 }
@@ -25,7 +25,7 @@ function get(req, res, next) {
  * @returns {User[]}
  */
 function list(req, res, next) {
-  User.find({})
+  AuthUser.find({})
     .then((users) => {
       res.json(users);
     })
@@ -44,8 +44,8 @@ function update(req, res, next) {
   const { username } = req.params;
   const query = { userName: username };
   const userProps = req.body;
-  User.findOneAndUpdate(query, userProps)
-    .then(() => User.findOne(query))
+  AuthUser.findOneAndUpdate(query, userProps)
+    .then(() => AuthUser.findOne(query))
     .then((user) => {
       res.json(user);
     })
@@ -64,10 +64,10 @@ function remove(req, res, next) {
   const { username } = req.params;
   const query = { userName: username };
   let userModel;
-  User.findOne(query)
+  AuthUser.findOne(query)
     .then((user) => {
       userModel = user;
-      return User.findOneAndRemove(query);
+      return AuthUser.findOneAndRemove(query);
     })
     .then(() => res.status(204).json(userModel))
     .catch(next);

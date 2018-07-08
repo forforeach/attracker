@@ -3,7 +3,7 @@ const request = require('supertest');
 const chai = require('chai');
 const app = require('./../../src/app').app;
 
-const User = mongoose.model('user');
+const AuthUser = mongoose.model('authuser');
 const Client = mongoose.model('client');
 const expect = chai.expect;
 chai.config.includeStack = true;
@@ -22,7 +22,7 @@ describe('Auth controller', () => {
       .post('/api/auth/register')
       .send(userProps)
       .end(() => {
-        User.findOne({ email: userProps.email })
+        AuthUser.findOne({ email: userProps.email })
           .then((user) => {
             expect(user).not.to.be.null;
             expect(user.email).to.be.equal(userProps.email);
@@ -47,7 +47,7 @@ describe('Auth controller', () => {
     };
     const client = new Client(clientData);
     client.save()
-      .then(() => new User(userData))
+      .then(() => new AuthUser(userData))
       .then((user) => user.save())
       .then(() => (
         request(app)

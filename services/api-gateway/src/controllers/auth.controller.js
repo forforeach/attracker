@@ -1,4 +1,4 @@
-const User = require('./../models/user');
+const AuthUser = require('./../models/authUser');
 const auth = require('../auth/utils');
 
 /**
@@ -14,7 +14,7 @@ function register(req, res, next) {
   if (!userProps.password) {
     res.status(400).send();
   } else {
-    User.create(userProps)
+    AuthUser.create(userProps)
       .then((user) => auth.removePasswordProp(user.toObject()))
       .then((user) => {
         res.json(user);

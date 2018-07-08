@@ -3,7 +3,7 @@ const request = require('supertest');
 const chai = require('chai');
 const app = require('./../../src/app').app;
 
-const User = mongoose.model('user');
+const AuthUser = mongoose.model('authuser');
 const Client = mongoose.model('client');
 const expect = chai.expect;
 chai.config.includeStack = true;
@@ -26,7 +26,7 @@ describe('User controller', () => {
     const client = new Client(clientData);
     client.save().then(() => {
 
-      const user = new User(userData);
+      const user = new AuthUser(userData);
       user.save()
         .then(() => {
           request(app)
@@ -75,7 +75,7 @@ describe('User controller', () => {
 
   it('PUT to /api/users/:username should update a user', (done) => {
     const userName = 'user2';
-    const user = new User({
+    const user = new AuthUser({
       email: 'test@test.com',
       userName: userName,
       firstName: 'test',
@@ -87,7 +87,7 @@ describe('User controller', () => {
         .put(`/api/users/${userName}`)
         .set('Authorization', 'Bearer ' + accessToken)
         .send({ firstName: 'Joe' }))
-      .then(() => User.findOne({ userName: userName }))
+      .then(() => AuthUser.findOne({ userName: userName }))
       .then((dbUser) => {
         expect(dbUser.firstName).to.be.equal('Joe');
         done();
@@ -96,7 +96,7 @@ describe('User controller', () => {
 
   it('DELETE to /api/users/:username should remove a user', (done) => {
     const userName = 'user2';
-    const user = new User({
+    const user = new AuthUser({
       email: 'testq@test.com',
       userName,
       firstName: 'test',
@@ -108,7 +108,7 @@ describe('User controller', () => {
         .delete(`/api/users/${userName}`)
         .set('Authorization', 'Bearer ' + accessToken)
       )
-      .then(() => User.findOne({ userName }))
+      .then(() => AuthUser.findOne({ userName }))
       .then((dbUser) => {
         expect(dbUser).to.be.null;
         done();

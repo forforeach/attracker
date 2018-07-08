@@ -3,7 +3,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const oauth2config = require('./../../configs/oauth2.config');
 const auth = require('./utils');
-const User = require('./../models/user');
+const AuthUser = require('./../models/authUser');
 const RefreshToken = require('../models/refreshToken');
 
 // create OAuth 2.0 server
@@ -28,7 +28,7 @@ server.exchange(oauth2orize.exchange.password((client, username, password, scope
     email: 1,
     password: 1
   };
-  User.findOne({ userName: username }, queryFields)
+  AuthUser.findOne({ userName: username }, queryFields)
     .then((user) => user ? user.validatePassword(password) : done(null, false))
     .then((user) => {
       const userObject = auth.removePasswordProp(user.toClientObject());
@@ -50,7 +50,7 @@ server.exchange(oauth2orize.exchange.refreshToken(({ clientId }, refreshToken, s
   const { jti: tokenId, userId } = jwt.decode(refreshToken);
   RefreshToken.findOne({ tokenId, clientId: clientId })
     .then((foundToken) => auth.validateRefreshToken(foundToken, refreshToken, clientId))
-    .then(() => User.findById(userId))
+    .then(() => AuthUser.findById(userId))
     .then((user) => auth.generateAccessToken(user.toClientObject(), clientId, scope))
     .then((accessToken) => done(null, accessToken, refreshToken, expiresIn))
     .catch(() => done(null, false));

@@ -18,7 +18,7 @@ before((done) => {
 
 beforeEach((done) => {
   const { collections } = mongoose.connection;
-  collections.users.drop(() => collections.clients.drop(() => done()));
+  collections.authusers.drop(() => collections.clients.drop(() => done()));
 });
 
 after(() => mongoose.connection.close());

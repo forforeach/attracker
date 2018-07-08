@@ -3,7 +3,7 @@ const { Strategy: LocalStrategy } = require('passport-local');
 const { BasicStrategy } = require('passport-http');
 const { Strategy: ClientPasswordStrategy } = require('passport-oauth2-client-password');
 const { Strategy: BearerStrategy } = require('passport-http-bearer');
-const User = require('./../models/user');
+const AuthUser = require('./../models/authUser');
 const Client = require('./../models/client');
 const AccessToken = require('./../models/accessToken');
 const authUtils = require('./../auth/utils');
@@ -23,7 +23,7 @@ passport.use(new LocalStrategy((username, password, done) => {
     email: 1,
     password: 1
   };
-  User.findOne({ userName: username }, queryFields)
+  AuthUser.findOne({ userName: username }, queryFields)
     .then((user) => {
       if (user === null) {
         throw new Error('User not found');
@@ -80,7 +80,7 @@ passport.use(new BearerStrategy((accessToken, done) => {
   authUtils.verifyToken(accessToken)
     .then((decodedToken) => decodedToken.jti)
     .then((tokenId) => AccessToken.findOne({ tokenId }))
-    .then((token) => User.findOne({ _id: token.userId }).then((user) => ({ user, token })))
+    .then((token) => AuthUser.findOne({ _id: token.userId }).then((user) => ({ user, token })))
     .then(({ user, token }) => user ? token : done(null, false))
     .then((token) => done(null, token, { scope: '*' }))
     .catch(() => done(null, false));
