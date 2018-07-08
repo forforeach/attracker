@@ -1,4 +1,4 @@
-const AuthUser = require('./../models/authUser');
+const AuthUser = require('./../models/AuthUser');
 
 /**
  * retrieves a single user using User model

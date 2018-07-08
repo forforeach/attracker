@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const uuid = require('uuid/v4');
 const appConfig = require('./../../configs/app.config');
 const oauth2config = require('./../../configs/oauth2.config');
-const AccessToken = require('./../models/accessToken');
-const RefreshToken = require('./../models/refreshToken');
+const AccessToken = require('./../models/AccessToken');
+const RefreshToken = require('./../models/RefreshToken');
 
 const createToken = (payload, secret, expiresIn) => (
   jwt.sign(payload, secret, {

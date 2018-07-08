@@ -3,9 +3,9 @@ const { Strategy: LocalStrategy } = require('passport-local');
 const { BasicStrategy } = require('passport-http');
 const { Strategy: ClientPasswordStrategy } = require('passport-oauth2-client-password');
 const { Strategy: BearerStrategy } = require('passport-http-bearer');
-const AuthUser = require('./../models/authUser');
-const Client = require('./../models/client');
-const AccessToken = require('./../models/accessToken');
+const AuthUser = require('./../models/AuthUser');
+const Client = require('./../models/Client');
+const AccessToken = require('./../models/AccessToken');
 const authUtils = require('./../auth/utils');
 
 /**

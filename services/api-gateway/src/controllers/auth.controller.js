@@ -1,4 +1,4 @@
-const AuthUser = require('./../models/authUser');
+const AuthUser = require('./../models/AuthUser');
 const auth = require('../auth/utils');
 
 /**

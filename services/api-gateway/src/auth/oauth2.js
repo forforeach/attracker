@@ -3,8 +3,8 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const oauth2config = require('./../../configs/oauth2.config');
 const auth = require('./utils');
-const AuthUser = require('./../models/authUser');
-const RefreshToken = require('../models/refreshToken');
+const AuthUser = require('./../models/AuthUser');
+const RefreshToken = require('../models/RefreshToken');
 
 // create OAuth 2.0 server
 const server = oauth2orize.createServer({ userProperty: 'client' });
