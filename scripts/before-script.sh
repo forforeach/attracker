@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 BEFORE_SCRIPT_FILE=before-script.sh
 ROOT_DIR=$PWD
 for DIR in services/*/; do

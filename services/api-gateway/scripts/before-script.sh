@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 file="../.env"
 printf "\tChecking if .env file exists...\n"
 if [ -f "$file" ]; then
