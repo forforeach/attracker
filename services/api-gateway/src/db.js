@@ -3,18 +3,22 @@ const dbConfig = require('./../configs/app.config').db;
 
 let result;
 
-if (process.env.NODE_ENV !== 'test') {
-  result = new Promise((resolve, reject) => {
-    mongoose.Promise = global.Promise;
 
-    mongoose.connect(dbConfig.connectionString);
+const start = () => {
+  if (process.env.NODE_ENV !== 'test') {
+    result = new Promise((resolve, reject) => {
+      mongoose.Promise = global.Promise;
 
-    mongoose.connection
-      .once('open', () => resolve('DB started'))
-      .on('error', (error) => reject(error));
-  });
-} else {
-  result = Promise.resolve('Not started, testing environment');
-}
+      mongoose.connect(dbConfig.connectionString);
 
-module.exports = result;
+      mongoose.connection
+        .once('open', () => resolve('DB started'))
+        .on('error', (error) => reject(error));
+    });
+  } else {
+    result = Promise.resolve('Not started, testing environment');
+  }
+  return result;
+};
+
+module.exports = start;

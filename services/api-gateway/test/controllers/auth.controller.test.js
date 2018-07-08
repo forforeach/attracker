@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const request = require('supertest');
 const chai = require('chai');
-const app = require('./../../src/app');
+const app = require('./../../src/app').app;
 
 const User = mongoose.model('user');
 const Client = mongoose.model('client');
